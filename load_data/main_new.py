@@ -317,6 +317,9 @@ def show_how_to_set_env_vars() -> None:
 async def main() -> None:
     """Main asynchronous entry point for data ingestion and embedding update."""
     debug = True
+    if platform.system == "Windows":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+        
     if not os.path.exists(DATA_FILE):
         logger.error("Data file %s not found.", DATA_FILE)
         sys.exit(1)
